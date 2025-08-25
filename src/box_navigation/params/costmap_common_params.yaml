@@ -1,0 +1,15 @@
+# 로봇 크기(0.5 x 0.5)에 맞게 footprint 조정
+footprint: [[-0.30, -0.30], [-0.30, 0.30], [0.30, 0.30], [0.30, -0.30]]
+
+# 센서 범위 설정
+obstacle_range: 2.5
+raytrace_range: 3.0
+
+# 장애물 팽창 반경
+inflation_radius: 0.10  # 로봇 크기를 고려하여 약간 증가
+cost_scaling_factor: 15.0
+
+# 맵 타입 및 센서 설정
+map_type: costmap
+observation_sources: scan
+scan: {sensor_frame: base_scan, data_type: LaserScan, topic: scan, marking: true, clearing: true}

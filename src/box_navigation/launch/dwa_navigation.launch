@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- 로봇 bringup - box_core.launch 실행 -->
+  <include file="$(find box_bringup)/launch/box_core.launch" />
+
+  <!-- move base -->
+  <include file="$(find box_navigation)/launch/dwa_move_base.launch" />
+  
+  <!-- YDLidar (필요시) -->
+  <include file="$(find ydlidar_ros_driver)/launch/G2.launch"/>
+
+  <!-- Jetson Nano용 경량 RViz 설정 -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find box_navigation)/rviz/box_navigation.rviz" respawn="true">
+    <param name="framerate_limit" value="5.0"/> <!-- 프레임 레이트 제한 -->
+  </node>
+</launch>

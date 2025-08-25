@@ -1,0 +1,20 @@
+<launch>
+  <!-- 로봇 bringup - box_core.launch 실행 -->
+  <include file="$(find box_bringup)/launch/box_core.launch" />
+
+  <!-- Static TF publisher (임시 해결책) -->
+  <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" args="0 0 0 0 0 0 base_footprint base_link 100" />
+
+  <!-- move base -->
+  <include file="$(find box_navigation)/launch/move_base.launch" />
+  
+  <!-- YDLidar (옵션) -->
+  <include file="$(find ydlidar_ros_driver)/launch/G2.launch"/>
+
+  <!-- Jetson Nano용 경량 RViz 설정 -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find box_navigation)/rviz/box_navigation.rviz" respawn="true">
+    <param name="framerate_limit" value="5.0"/> <!-- 프레임 레이트 제한 -->
+  </node>
+</launch>
+
+  

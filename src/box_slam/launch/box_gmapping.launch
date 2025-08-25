@@ -1,0 +1,26 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="use_ydlidar" default="false"/>
+  <arg name="open_rviz" default="true"/>
+  
+  <!-- YDLidar (옵션) -->
+  <include if="$(arg use_ydlidar)" file="$(find ydlidar_ros_driver)/launch/G2.launch"/>
+  
+  <!-- URDF 로드 -->
+  <param name="robot_description" textfile="$(find box_description)/urdf/box.urdf" />
+  
+  <!-- Gmapping -->
+  <node pkg="gmapping" type="slam_gmapping" name="box_slam_gmapping" output="screen">
+    <param name="base_frame" value="base_footprint"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="map_frame" value="map"/>
+    <remap from="scan" to="/scan"/>
+    <rosparam command="load" file="$(find box_slam)/config/gmapping_params.yaml" />
+  </node>
+  
+  <!-- RViz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find box_slam)/rviz/gmapping.rviz"/>
+  </group>
+</launch>

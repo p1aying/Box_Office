@@ -1,0 +1,15 @@
+<launch>
+  <!-- URDF 로드 -->
+  <param name="robot_description" textfile="$(find box_description)/urdf/box.urdf" />
+  
+  <!-- Box Core Node -->
+  <node pkg="box_bringup" type="box_core.py" name="box_core" output="screen">
+    <param name="port" value="/dev/ttyUSB0"/>
+    <param name="baud" value="57600"/>
+  </node>
+  
+  <!-- robot state -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+    <param name="publish_frequency" type="double" value="30.0" /> <!-- 주파수 증가 -->
+</launch>

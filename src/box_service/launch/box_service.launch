@@ -1,0 +1,19 @@
+<launch>
+  <!-- 설명: 박스 서비스 실행을 위한 launch 파일 -->
+  
+  <!-- box_service 노드 실행 -->
+  <node pkg="box_service" type="box_service.py" name="box_service" output="screen">
+    <!-- 파라미터 설정 (필요한 경우) -->
+    <!-- <param name="param_name" value="param_value" /> -->
+  </node>
+  
+  <!-- 필요한 경우 로봇 네비게이션 스택 실행 -->
+  <!-- 실제 로봇에 맞게 경로를 수정하세요 -->
+  <!-- <include file="$(find 로봇패키지_navigation)/launch/navigation.launch"> -->
+  <!--   <arg name="map_file" value="$(find box_service)/maps/map.yaml"/> -->
+  <!-- </include> -->
+  
+  <!-- RVIZ 실행 (선택 사항) -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find box_service)/rviz/box_service.rviz"/> -->
+  
+</launch>

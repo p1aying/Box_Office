@@ -1,0 +1,41 @@
+### 전역 코스트맵 파라미터 - DWA 최적화 ###
+
+global_costmap:
+  # 전역 프레임 설정 
+  global_frame: map
+  robot_base_frame: base_link
+  
+  # 업데이트 설정
+  update_frequency: 3.0        # 업데이트 주기 (Hz)
+  publish_frequency: 3.0       # 발행 주기 (Hz)
+  transform_tolerance: 0.8     # 변환 허용 오차 (초)
+  
+  # 맵 관리 설정
+  static_map: true             # 정적 맵 사용 여부
+  rolling_window: false        # 롤링 윈도우 비활성화 (전역 맵 사용)
+  
+  # 해상도 설정
+  resolution: 0.05             # 맵 해상도 (미터)
+  
+  # 크기 설정 (static_map이 true인 경우 무시됨)
+  width: 40.0
+  height: 40.0
+  
+  # 플러그인 설정
+  plugins:
+    - {name: static_layer, type: "costmap_2d::StaticLayer"}
+    - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}
+    - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
+
+  obstacle_layer:
+    observation_sources: laser_scan_sensor
+    laser_scan_sensor:
+      sensor_frame: base_scan
+      data_type: LaserScan
+      topic: scan
+      marking: true
+      clearing: true
+      obstacle_range: 2.5
+      raytrace_range: 3.0
+      inf_is_vaild: true
+      expected_update_rate: 0.4
